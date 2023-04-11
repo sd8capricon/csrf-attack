@@ -82,7 +82,7 @@
         let username = document.getElementById('username')
         let password = document.getElementById('password')
         redeemBtn.addEventListener("click", () => {
-            fetch(`http://localhost:3000/account/reset-password`, {
+            fetch(`https://remsgems.azurewebsites.net/account/reset-password`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
