@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 50px;
+            text-align: center;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            color: #666;
+        }
+
+        form {
+            display: inline-block;
+            text-align: left;
+        }
+
+        input {
+            display: block;
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 18px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0062cc;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0062cc;
+        }
+    </style>
+</head>
+<!-- <button id="chng-pass">Change asdf's pass</button> -->
+
+<body>
+    <div class="container">
+        <h1>Congratulations!</h1>
+        <p>You have been selected to receive a free Rems Gems gift card worth $50!</p>
+        <h2>Enter your username and password to reedeem</h2>
+        <input id="username" type="text" placeholder="username">
+        <input id="password" type="password" placeholder="password">
+        <button id="reedeem">Reedeem</button>
+    </div>
+    <script>
+        let redeemBtn = document.getElementById('reedeem')
+        let username = document.getElementById('username')
+        let password = document.getElementById('password')
+        redeemBtn.addEventListener("click", () => {
+            fetch(`http://localhost:3000/account/reset-password`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: username.value,
+                    prev_pass: password.value,
+                    new_pass: "abcd"
+                })
+            }).then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Password changed successfully")
+                    } else {
+                        console.log(data.message)
+                    }
+                })
+                .catch(err => console.log(err))
+        })
+
+    </script>
+</body>
+
+</html>
